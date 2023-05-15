@@ -4,7 +4,6 @@
 use App\Models\PageView;
 use App\Models\PageViewLog;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('welcome');
 });
 
 Route::get('logView', function (Request $request) {
@@ -29,14 +28,11 @@ Route::get('logView', function (Request $request) {
         'views_count' => $request->input('views_count', 1),
     ]);
 
-    PageViewLog::create([
-        'url'     => $request->input('url', '/'),
-        'user_id' => Auth::id()
-    ]);
+    die();
 
+    return var_export($request, true);
     return response()->json(['success' => true]);
 });
-
 
 Auth::routes();
 
