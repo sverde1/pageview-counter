@@ -3,6 +3,8 @@
 //use Carbon\Carbon;
 use App\Models\PageView;
 use App\Models\PageViewLog;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PageViewLogController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -18,9 +20,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Auth::routes();
+
+Route::get('/',            function() {
     return view('home');
-});
+})->name('index');
+Route::get('/home',        [HomeController::class, 'index']              )->name('home');
+Route::get('viewLogStats', [PageViewLogController::class, 'viewLogStats'])->name('viewLogStats');
 
 Route::get('logView', function (Request $request) {
 
@@ -38,6 +44,5 @@ Route::get('logView', function (Request $request) {
 });
 
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
